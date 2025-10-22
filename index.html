@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capacity Map</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+
+  <!-- Replace YOUR_API_KEY_HERE with your actual Google Maps API key -->
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Zn_MdkjojRyTp4QTb0SnZlXzTo_kmA8&callback=initMap">
+    </script>
+
+  <script>
+    // Hardcoded GeoJSON polygon data
+    const geoJsonData = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Area 1",
+            "id": "1"
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+              [-122.4194, 37.7749],
+              [-122.4094, 37.7749],
+              [-122.4094, 37.7849],
+              [-122.4194, 37.7849],
+              [-122.4194, 37.7749]
+            ]]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Area 2",
+            "id": "2"
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+              [-122.4094, 37.7649],
+              [-122.3994, 37.7649],
+              [-122.3994, 37.7749],
+              [-122.4094, 37.7749],
+              [-122.4094, 37.7649]
+            ]]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Area 3",
+            "id": "3"
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+              [-122.4294, 37.7649],
+              [-122.4194, 37.7649],
+              [-122.4194, 37.7749],
+              [-122.4294, 37.7749],
+              [-122.4294, 37.7649]
+            ]]
+          }
+        }
+      ]
+    };
+
+    function initMap() {
+      // Initialize map centered on San Francisco
+      const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: { lat: 37.7749, lng: -122.4194 }
+      });
+
+      // Load GeoJSON data onto the map
+      map.data.addGeoJson(geoJsonData);
+
+      // Style the polygons
+      map.data.setStyle({
+        fillColor: '#4285F4',
+        fillOpacity: 0.3,
+        strokeColor: '#1a73e8',
+        strokeWeight: 2
+      });
+    }
+  </script>
+</body>
+
+</html>

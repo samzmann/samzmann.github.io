@@ -719,7 +719,14 @@
         ]
       },
       "properties": {
-        "name": "Pimentel Barbosa"
+        "name": "Pimentel Barbosa",
+        "area": "328,966 km²",
+        "population_size": 100,
+        "leaders": [
+          "John Doe",
+          "Jane Doe"
+        ],
+        "facts": "Andira Marau lands have a large concentration of niobium."
       },
       "id": "pimentel_barbosa"
     }

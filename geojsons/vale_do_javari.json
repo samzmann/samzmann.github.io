@@ -2091,7 +2091,14 @@
         ]
       },
       "properties": {
-        "name": "Vale do Javari"
+        "name": "Vale do Javari",
+        "area": "8.54 Million km²",
+        "population_size": 100,
+        "leaders": [
+          "John Doe",
+          "Jane Doe"
+        ],
+        "facts": "Andira Marau lands have a large concentration of niobium."
       },
       "id": "vale_do_javari"
     }

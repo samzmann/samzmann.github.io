@@ -1075,7 +1075,14 @@
         ]
       },
       "properties": {
-        "name": "Mundurukú Taquara"
+        "name": "Mundurukú Taquara",
+        "area": "25,323 km²",
+        "population_size": 100,
+        "leaders": [
+          "John Doe",
+          "Jane Doe"
+        ],
+        "facts": "Andira Marau lands have a large concentration of niobium."
       },
       "id": "munduruku_taquara"
     }

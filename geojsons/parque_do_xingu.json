@@ -659,7 +659,14 @@
         ]
       },
       "properties": {
-        "name": "Parque do Xingu"
+        "name": "Parque do Xingu",
+        "area": "2.64 Million km²",
+        "population_size": 100,
+        "leaders": [
+          "John Doe",
+          "Jane Doe"
+        ],
+        "facts": "Andira Marau lands have a large concentration of niobium."
       },
       "id": "parque_do_xingu"
     }

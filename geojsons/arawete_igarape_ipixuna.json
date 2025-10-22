@@ -479,7 +479,14 @@
         ]
       },
       "properties": {
-        "name": "Arawete Igarapé Ipixuna"
+        "name": "Arawete Igarapé Ipixuna",
+        "area": "940,900 km²",
+        "population_size": 100,
+        "leaders": [
+          "John Doe",
+          "Jane Doe"
+        ],
+        "facts": "Andira Marau lands have a large concentration of niobium."
       },
       "id": "arawete_igarape_ipixuna"
     }

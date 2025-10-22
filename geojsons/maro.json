@@ -2003,7 +2003,14 @@
         ]
       },
       "properties": {
-        "name": "Maró"
+        "name": "Maró",
+        "area": "42,373 km²",
+        "population_size": 100,
+        "leaders": [
+          "John Doe",
+          "Jane Doe"
+        ],
+        "facts": "Andira Marau lands have a large concentration of niobium."
       },
       "id": "maro"
     }

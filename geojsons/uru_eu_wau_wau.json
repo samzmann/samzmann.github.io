@@ -835,7 +835,14 @@
         ]
       },
       "properties": {
-        "name": "Uru-Eu-Wau-Wau"
+        "name": "Uru-Eu-Wau-Wau",
+        "area": "1.86 Million km²",
+        "population_size": 100,
+        "leaders": [
+          "John Doe",
+          "Jane Doe"
+        ],
+        "facts": "Andira Marau lands have a large concentration of niobium."
       },
       "id": "uru_eu_wau_wau"
     }

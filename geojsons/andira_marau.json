@@ -536,17 +536,13 @@
       },
       "properties": {
         "name": "Andira Marau",
-        "area_ha": 100,
+        "area": "788,528 km²",
         "population_size": 100,
         "leaders": [
           "John Doe",
           "Jane Doe"
         ],
-        "main_threats": [
-          "Threat 1",
-          "Threat 2"
-        ],
-        "facts": "Balaio lands have a large concentration of niobium"
+        "facts": "Andira Marau lands have a large concentration of niobium."
       },
       "id": "andira_marau"
     }

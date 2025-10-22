@@ -959,7 +959,14 @@
         ]
       },
       "properties": {
-        "name": "Yanomami"
+        "name": "Yanomami",
+        "area": "9.66 Million km²",
+        "population_size": 100,
+        "leaders": [
+          "John Doe",
+          "Jane Doe"
+        ],
+        "facts": "Andira Marau lands have a large concentration of niobium."
       },
       "id": "yanomami"
     }

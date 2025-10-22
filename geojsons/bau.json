@@ -699,7 +699,14 @@
         ]
       },
       "properties": {
-        "name": "Baú"
+        "name": "Baú",
+        "area": "1.54 Million km²",
+        "population_size": 100,
+        "leaders": [
+          "John Doe",
+          "Jane Doe"
+        ],
+        "facts": "Andira Marau lands have a large concentration of niobium."
       },
       "id": "bau"
     }

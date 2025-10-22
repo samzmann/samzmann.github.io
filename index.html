@@ -96,7 +96,15 @@
     function initMap() {
       // Initialize map centered on Brazil (will auto-adjust after loading data)
       const map = new google.maps.Map(document.getElementById('map'), {
-        mapId: "70f4946f74845226f7375a00",
+        // mapId: "ebb9f622ef97bae1ad6cf97a",
+        mapTypeId: 'hybrid',
+        zoomControl: true,
+        cameraControl: false,
+        mapTypeControl: false,
+        scaleControl: true,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: false,
         zoom: 8,
         center: { lat: 0, lng: -58.0 }
       });
@@ -106,9 +114,9 @@
 
       // Style the polygons
       map.data.setStyle({
-        fillColor: '#4285F4',
-        fillOpacity: 0.3,
-        strokeColor: '#1a73e8',
+        fillColor: '#AD6DEF',
+        fillOpacity: 0.5,
+        strokeColor: '#AD6DEF',
         strokeWeight: 2
       });
 

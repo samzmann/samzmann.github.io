@@ -29,10 +29,8 @@
 <body>
   <div id="map"></div>
 
-  <!-- Replace YOUR_API_KEY_HERE with your actual Google Maps API key -->
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Zn_MdkjojRyTp4QTb0SnZlXzTo_kmA8&callback=initMap"
-    loading="async">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Zn_MdkjojRyTp4QTb0SnZlXzTo_kmA8&loading=async&callback=initMap">
     </script>
 
 
@@ -75,7 +73,6 @@
         geoJsonDataArray.forEach((geoJson, index) => {
           if (geoJson) {
             map.data.addGeoJson(geoJson);
-            console.log(`Loaded ${geoJsonFiles[index]}`);
           }
         });
 
@@ -96,7 +93,6 @@
     function initMap() {
       // Initialize map centered on Brazil (will auto-adjust after loading data)
       const map = new google.maps.Map(document.getElementById('map'), {
-        // mapId: "ebb9f622ef97bae1ad6cf97a",
         mapTypeId: 'hybrid',
         zoomControl: true,
         cameraControl: false,
@@ -126,46 +122,32 @@
       // OPTION 1: Show popup/callout on click
       // Uncomment this block to use popup behavior
 
-      // map.data.addListener('click', function (event) {
-      //   const name = event.feature.getProperty('name');
-      //   const id = event.feature.getProperty('id');
+      map.data.addListener('click', function (event) {
+        const name = event.feature.getProperty('name');
+        const id = event.feature.getProperty('id');
 
-      //   // Get the click position
-      //   const position = event.latLng;
+        // Get the click position
+        const position = event.latLng;
+        const facts = event.feature.getProperty('facts');
+        const leaders = event.feature.getProperty('leaders');
+        const main_threats = event.feature.getProperty('main_threats');
+        const population_size = event.feature.getProperty('population_size');
+        const area_ha = event.feature.getProperty('area_ha');
 
-      //   // Set content and position for the InfoWindow
-      //   infoWindow.setContent(`
-      //     <div style="padding: 10px;">
-      //       <h3 style="margin: 0 0 5px 0;">${name}</h3>
-      //       <p style="margin: 0;">Territory ID: ${id}</p>
-      //     </div>
-      //   `);
-      //   infoWindow.setPosition(position);
-      //   infoWindow.open(map);
-      // });
-
-
-      // OPTION 2: Navigate to anchor link (works with parent page if in iframe)
-      // This is currently active
-
-      // map.data.addListener('click', function (event) {
-      //   const id = event.feature.getProperty('id');
-      //   const name = event.feature.getProperty('name');
-
-      //   // Create anchor link from the ID (e.g., #area-1, #area-2, etc.)
-      //   const anchor = `#area-${id}`;
-
-      //   // If this page is in an iframe, navigate the parent page
-      //   if (window.parent !== window) {
-      //     // In an iframe - update parent URL
-      //     window.parent.location.hash = anchor;
-      //   } else {
-      //     // Not in iframe - navigate this page
-      //     window.location.hash = anchor;
-      //   }
-
-      //   console.log(`Clicked ${name} - navigating to ${anchor}`);
-      // });
+        // Set content and position for the InfoWindow
+        infoWindow.setContent(`
+          <div style="padding: 10px;">
+            <h3 style="margin: 0 0 5px 0;">${name}</h3>
+            <p style="margin: 0;">Population size: ${population_size}</p>
+            <p style="margin: 0;">Area: ${area_ha} ha</p>
+            <p style="margin: 0;">Facts: ${facts}</p>
+            <p style="margin: 0;">Leaders: ${leaders}</p>
+            <p style="margin: 0;">Main threats: ${main_threats}</p>          
+          </div>
+        `);
+        infoWindow.setPosition(position);
+        infoWindow.open(map);
+      });
 
       // Add hover effect
       map.data.addListener('mouseover', function (event) {

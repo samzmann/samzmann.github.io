@@ -110,6 +110,64 @@
         strokeColor: '#1a73e8',
         strokeWeight: 2
       });
+
+      // Create an InfoWindow for popup display
+      const infoWindow = new google.maps.InfoWindow();
+
+      // OPTION 1: Show popup/callout on click
+      // Uncomment this block to use popup behavior
+
+      // map.data.addListener('click', function (event) {
+      //   const name = event.feature.getProperty('name');
+      //   const id = event.feature.getProperty('id');
+
+      //   // Get the click position
+      //   const position = event.latLng;
+
+      //   // Set content and position for the InfoWindow
+      //   infoWindow.setContent(`
+      //     <div style="padding: 10px;">
+      //       <h3 style="margin: 0 0 5px 0;">${name}</h3>
+      //       <p style="margin: 0;">Territory ID: ${id}</p>
+      //     </div>
+      //   `);
+      //   infoWindow.setPosition(position);
+      //   infoWindow.open(map);
+      // });
+
+
+      // OPTION 2: Navigate to anchor link (works with parent page if in iframe)
+      // This is currently active
+      map.data.addListener('click', function (event) {
+        const id = event.feature.getProperty('id');
+        const name = event.feature.getProperty('name');
+
+        // Create anchor link from the ID (e.g., #area-1, #area-2, etc.)
+        const anchor = `#area-${id}`;
+
+        // If this page is in an iframe, navigate the parent page
+        if (window.parent !== window) {
+          // In an iframe - update parent URL
+          window.parent.location.hash = anchor;
+        } else {
+          // Not in iframe - navigate this page
+          window.location.hash = anchor;
+        }
+
+        console.log(`Clicked ${name} - navigating to ${anchor}`);
+      });
+
+      // Add hover effect
+      map.data.addListener('mouseover', function (event) {
+        map.data.overrideStyle(event.feature, {
+          fillOpacity: 0.6,
+          strokeWeight: 3
+        });
+      });
+
+      map.data.addListener('mouseout', function (event) {
+        map.data.revertStyle();
+      });
     }
   </script>
 </body>

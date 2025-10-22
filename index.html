@@ -86,7 +86,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 11pt;
+      font-size: 12pt;
       color: rgba(255, 255, 255, 0.8);
     }
 
@@ -105,12 +105,12 @@
 
     .popup-facts {
       margin-bottom: 12px;
-      font-size: 10pt;
+      font-size: 14pt;
       color: #666;
     }
 
     .popup-leaders {
-      font-size: 10pt;
+      font-size: 14pt;
       color: #333;
     }
   </style>
@@ -214,6 +214,11 @@
       // Add popup to map container
       document.getElementById('map').appendChild(popupDiv);
 
+      // Hide popup when clicking on map background
+      map.addListener('click', function () {
+        popupDiv.style.display = 'none';
+      });
+
       // Show popup on click
       map.data.addListener('click', function (event) {
         const name = event.feature.getProperty('name');
@@ -246,6 +251,13 @@
 
         // Show the popup
         popupDiv.style.display = 'flex';
+
+        // Center and fit the map to the clicked territory
+        const bounds = new google.maps.LatLngBounds();
+        event.feature.getGeometry().forEachLatLng(latLng => {
+          bounds.extend(latLng);
+        });
+        map.fitBounds(bounds);
 
         // Add close button handler
         const closeBtn = popupDiv.querySelector('.popup-close-btn');

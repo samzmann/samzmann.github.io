@@ -31,77 +31,78 @@
 
   <!-- Replace YOUR_API_KEY_HERE with your actual Google Maps API key -->
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Zn_MdkjojRyTp4QTb0SnZlXzTo_kmA8&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Zn_MdkjojRyTp4QTb0SnZlXzTo_kmA8&callback=initMap"
+    loading="async">
     </script>
 
+
   <script>
-    // Hardcoded GeoJSON polygon data
-    const geoJsonData = {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "properties": {
-            "name": "Area 1",
-            "id": "1"
-          },
-          "geometry": {
-            "type": "Polygon",
-            "coordinates": [[
-              [-122.4194, 37.7749],
-              [-122.4094, 37.7749],
-              [-122.4094, 37.7849],
-              [-122.4194, 37.7849],
-              [-122.4194, 37.7749]
-            ]]
+    // List of GeoJSON files to load
+    const geoJsonFiles = [
+      'andira_marau.json',
+      'arawete_igarape_ipixuna.json',
+      'bau.json',
+      'jaragua.json',
+      'maro.json',
+      'munduruku_taquara.json',
+      'parque_do_xingu.json',
+      'pimentel_barbosa.json',
+      'uru_eu_wau_wau.json',
+      'vale_do_javari.json',
+      'yanomami.json'
+    ];
+
+    async function loadGeoJsonFiles(map) {
+      try {
+        // Fetch all GeoJSON files in parallel
+        const promises = geoJsonFiles.map(file =>
+          fetch(`geojsons/${file}`)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(`Failed to load ${file}: ${response.statusText}`);
+              }
+              return response.json();
+            })
+            .catch(error => {
+              console.error(`Error loading ${file}:`, error);
+              return null;
+            })
+        );
+
+        const geoJsonDataArray = await Promise.all(promises);
+
+        // Add each valid GeoJSON to the map
+        geoJsonDataArray.forEach((geoJson, index) => {
+          if (geoJson) {
+            map.data.addGeoJson(geoJson);
+            console.log(`Loaded ${geoJsonFiles[index]}`);
           }
-        },
-        {
-          "type": "Feature",
-          "properties": {
-            "name": "Area 2",
-            "id": "2"
-          },
-          "geometry": {
-            "type": "Polygon",
-            "coordinates": [[
-              [-122.4094, 37.7649],
-              [-122.3994, 37.7649],
-              [-122.3994, 37.7749],
-              [-122.4094, 37.7749],
-              [-122.4094, 37.7649]
-            ]]
-          }
-        },
-        {
-          "type": "Feature",
-          "properties": {
-            "name": "Area 3",
-            "id": "3"
-          },
-          "geometry": {
-            "type": "Polygon",
-            "coordinates": [[
-              [-122.4294, 37.7649],
-              [-122.4194, 37.7649],
-              [-122.4194, 37.7749],
-              [-122.4294, 37.7749],
-              [-122.4294, 37.7649]
-            ]]
-          }
-        }
-      ]
-    };
+        });
+
+        // Fit map bounds to show all loaded features
+        const bounds = new google.maps.LatLngBounds();
+        map.data.forEach(feature => {
+          feature.getGeometry().forEachLatLng(latLng => {
+            bounds.extend(latLng);
+          });
+        });
+        map.fitBounds(bounds);
+
+      } catch (error) {
+        console.error('Error loading GeoJSON files:', error);
+      }
+    }
 
     function initMap() {
-      // Initialize map centered on San Francisco
+      // Initialize map centered on Brazil (will auto-adjust after loading data)
       const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: { lat: 37.7749, lng: -122.4194 }
+        mapId: "70f4946f74845226f7375a00",
+        zoom: 8,
+        center: { lat: 0, lng: -58.0 }
       });
 
-      // Load GeoJSON data onto the map
-      map.data.addGeoJson(geoJsonData);
+      // Load GeoJSON files from the /geojsons directory
+      loadGeoJsonFiles(map);
 
       // Style the polygons
       map.data.setStyle({
@@ -138,24 +139,25 @@
 
       // OPTION 2: Navigate to anchor link (works with parent page if in iframe)
       // This is currently active
-      map.data.addListener('click', function (event) {
-        const id = event.feature.getProperty('id');
-        const name = event.feature.getProperty('name');
 
-        // Create anchor link from the ID (e.g., #area-1, #area-2, etc.)
-        const anchor = `#area-${id}`;
+      // map.data.addListener('click', function (event) {
+      //   const id = event.feature.getProperty('id');
+      //   const name = event.feature.getProperty('name');
 
-        // If this page is in an iframe, navigate the parent page
-        if (window.parent !== window) {
-          // In an iframe - update parent URL
-          window.parent.location.hash = anchor;
-        } else {
-          // Not in iframe - navigate this page
-          window.location.hash = anchor;
-        }
+      //   // Create anchor link from the ID (e.g., #area-1, #area-2, etc.)
+      //   const anchor = `#area-${id}`;
 
-        console.log(`Clicked ${name} - navigating to ${anchor}`);
-      });
+      //   // If this page is in an iframe, navigate the parent page
+      //   if (window.parent !== window) {
+      //     // In an iframe - update parent URL
+      //     window.parent.location.hash = anchor;
+      //   } else {
+      //     // Not in iframe - navigate this page
+      //     window.location.hash = anchor;
+      //   }
+
+      //   console.log(`Clicked ${name} - navigating to ${anchor}`);
+      // });
 
       // Add hover effect
       map.data.addListener('mouseover', function (event) {
